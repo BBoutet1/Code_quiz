@@ -11,25 +11,28 @@
         <title>Code Quiz</title>
     </head>
     <body>
-        <header class="row" >
-            <div class="codeQuiz rounded-circle">
-                <h1 class ="text-center"> Code Quiz</h1>
-                <h3 class="text-center"> Challeng your programming expetise!</h3>
-            </div>
+        <header class="jumbotron jumbotron-fluid">
+            <section class="row">
+                <div class="col-lg-6 text-center">
+                     <h3 class="d-inline"> View high score:</h3> <h3 id="highscore" class="d-inline"></h3>
+                </div>
+                <div  class="col-lg-6 text-center">
+                     <h3 class="d-inline"> time: </h3> <h3 id="score" class="d-inline">0</h3>
+                </div>
+            </section>
         </header>
-        <div class="container">
-            <main class="row">
-                <section class="col-sm-4">
-                    <p> View high score</p>
-                </section>
-                <section class="col-sm-4">
-                    <p id=""> Click to start the challenge</p>
-                </section>
-                <section class="col-sm-4">
-                    <p> Time:</p>
-                    <p id=""></p>
-                </section>
-            </main>
-        </div>
+        <main>
+            <section class="container">    
+                <div class="card">
+                    <h3 class="card-header"> <strong>Coding Quiz challenge</strong></h3>
+                    <div class="card-body">
+                        <p id="" class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by ten secode</p>
+                        <div class="text-center">
+                            <button id="startQuiz" type="button" class="btn btn-success text-center">Start Quiz</button>
+                       </div>
+                    </div>
+                </div>
+        </section>
+    </main>
       </body>
 </html>
