@@ -140,6 +140,8 @@ var questionsList = [
 
 ];
 
+
+
 var i= 0;
 
 $(document).ready(function(){
@@ -157,6 +159,7 @@ $(document).ready(function(){
        //Choice list vertical left align
        $("#qBtn").addClass("d-flex flex-column float-left");
        $("#b1, #b2, #b3, #b4").addClass("text-left")
+       $("#b3, #b2, #b3, #b4").removeClass("d-none")
 
      
        i++;
