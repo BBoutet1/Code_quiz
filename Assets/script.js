@@ -4,76 +4,76 @@
 var questionsList = [
     {
         question: "What is the correct  HTML5 doctype?",
-       answers : [  "<!DOCTYPE html>", "<DOCTYPE html>","<!DOCTYPE html5>",]
+       answers : [   "<DOCTYPE html>","<!DOCTYPE html>","<!DOCTYPE html5>",]
     },
    {
         question: "Which tag start a numbered list?",
-        answers: ["<ol>", "<al>", "<ul>", "<li>",]
+        answers: [ "<al>", "<ol>","<ul>", "<li>",]
     },
   {
         question: "Inline elements are normally displayed without starting a new line.",
-        answers: ["True", "False",]
+        answers: [ "False","True",]
     },
   {
         question: "Which HTML is correct for referencing an external stylesheet",
-        answers: ["<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
-                 "<link src=\"stylesheet\" type=\"text/css\" href\style.css\" />",
+        answers: [ "<link src=\"stylesheet\" type=\"text/css\" href\style.css\" />",
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
                  "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",]
     },
 
    {
         question : "Which CSS property changes the text color of an element?",
-        answers: ["color", "font-color", "text-color"]
+        answers: ["font-color", "color", "text-color"]
     },
     {
-        question : "Is it allowed to use negative values when using padding properties",
-        answers: ["No", "Yes",]
+        question : "Is it allowed to use negative values when using padding properties?",
+        answers: ["Yes","No"]
     },
    {
-        question: "In which HTML element do we put the JavaScript?",
-        answers: [ "<script>","<js>", "<src>"]
+        question: "In which HTML tag do we put the JavaScript?",
+        answers: [ "<js>", "<script>","<src>"]
     },
 
     {
         question: "The external JavaScript file contains the <script> tag.",
-        answers: ["Faste", "True"]
+        answers: [ "True", "Faste"]
     },
    {
         question : "How does a FOR loop start?",
-        answers: ["for(i=0; i<5; i++)", "for(i=0, i<5, i++)", "for(i=0 to 5, i++)", "for(i=0, i<5)"]
+        answers: [ "for(i=0, i<5, i++)", "for(i=0; i<5; i++)", "for(i=0 to 5, i++)", "for(i=0, i<5)"]
    },
     {
-        question : "On how many columns is the Bootstrap grid system based ",
-        answers: ["12","10","25","1024"]
+        question : "On how many columns is the Bootstrap grid system based ?",
+        answers: ["10","12","25","1024"]
     },
 
     {
         question : "Which Bootstrap contextual class indicates a dangerous or negative action? ",
-        answers: [".text-danger",".text-warning",".attention", ".text-stop"]
+        answers: [".text-warning", ".text-danger",".attention", ".text-stop"]
     },
 
    {
         question : "The Bootstrap grid system works across multiple devices.",
-        answers: ["True", "False"]
+        answers: ["False", "True"]
     },
 
     {
         question : "jQuery is a Javascript library.",
-        answers: ["True", "False"]
+        answers: ["False", "True"]
     },
     {
-        question : "Which sign does jQuery use as a shortcut for jQuery?.",
-        answers: ["$", "#", "%"]
+        question : "Which sign is used as a shortcut for jQuery?",
+        answers: [ "#", "$","%"]
     },
 
     {
         question : "What the following selector: $(\"div\") does?.",
-        answers: ["Select all div elements", "Select the firt div element"]
+        answers: ["Select the firt div element", "Select all div elements"]
 
     },
    {
         question : "What scripting language is jQuery written in?",
-        answer1: ["Javascript","css","C++"]
+        answer1: ["css", "Javascript","C++"]
    }
 
 ];
