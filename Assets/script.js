@@ -88,9 +88,10 @@ $(document).ready(function(){
  $("#b1, #b2, #b3, #b4").click(function(){
       i++;
 
+    if(i<(questionsList.length-1)){
+    
        $("h6").text(questionsList[i].question)
        $("#qBtn").addClass("d-flex flex-column float-left");
-       $("#qBtn").addClass("text-left");
        $("#b3, #b4").addClass("d-none");
             var answersArray = questionsList[i].answers; // Storing the answers array
             var numAnswers = answersArray.length; // Storing the initial length
@@ -104,28 +105,16 @@ $(document).ready(function(){
                 randomAnswers.push(answersArray[random]);
                 answersArray.splice(random,1);
                 var k =j+1
-               $("#b"+k).text(randomAnswers[j]);
+                var aNum = String.fromCharCode(64+k); // answer number (capital letter)
+               $("#b"+k).text(aNum+". "+randomAnswers[j]);
+               $("#b"+k).addClass("text-left");
                $("#b"+k).removeClass("d-none");
               
                console.log("Initial " +answersArray)
                console.log(random)
                console.log("random "+randomAnswers[j]);
-            }
-
-
-            
-
-
-        /* for (var j=0; randomAnswers.length; j++) {
-            var k =j+1
-            $("#b"+k).text(randomAnswers[j]);
-            $("#b"+k).removeClass("d-none");
-         }*/
-
-     
-      
-
+            } 
+       }  
     });
-
 });
 
