@@ -93,6 +93,7 @@ $(document).ready(function(){
        $("h6").text(questionsList[i].question)
        $("#qBtn").addClass("d-flex flex-column float-left");
        $("#b3, #b4").addClass("d-none");
+       $("#answerStatus").removeClass("d-none");
             var answersArray = questionsList[i].answers; // Storing the answers array
             var numAnswers = answersArray.length; // Storing the initial length
             var randomAnswers = []; // Randomly organized answers array
@@ -109,12 +110,27 @@ $(document).ready(function(){
                $("#b"+k).text(aNum+". "+randomAnswers[j]);
                $("#b"+k).addClass("text-left");
                $("#b"+k).removeClass("d-none");
-              
-               console.log("Initial " +answersArray)
-               console.log(random)
-               console.log("random "+randomAnswers[j]);
+               $("#answerStatus").addClass("d-none");
+               $("#qBtn"+k).removeClass("text-center");
+
+               
+             
             } 
-       }  
+            //var x = document.getElementsByClassName("anchors")[0].id;
+          /*   if (this.text() ==questionsList[1].answers){
+                $("#answerStatus").text("Correct!");                     
+            }
+            else{
+                $("#answerStatus").text("Wrong!");     
+            } */
+            
+       } 
+       else if (i=(questionsList.length-1)){
+            $("#b1, #b2, #b3, #b4").addClass("d-none");
+            $("h6").text("All done")
+            $("#finalScore").removeClass("d-none")
+            }
+                
     });
 });
 

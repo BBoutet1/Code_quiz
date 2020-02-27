@@ -24,7 +24,7 @@
         <main>
             <section class="container">    
                 <div class="card">
-                    <h3 class="card-header"> <strong>Coding Quiz challenge</strong></h3>
+                    <h3 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h3>
                     <div class="card-body">
                         <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by ten secode</h6>
                         <div id="qBtn" class="text-center">
@@ -33,7 +33,18 @@
                             <button id="b3" type="button" class="btn btn-success mb-2 d-none"></button>
                             <button id="b4" type="button" class="btn btn-success mb-2 d-none"></button>                    
                         </div>
-
+                        <div id=finalScore class="d-none">
+                            <div>Your final score is: </div>
+                            <form id="initials" class="form-inline">
+                                <label for="user-input" class="mr-2"> Add your initials</label>
+                                <input type="text" id="movie-input"><br>
+                                <!-- Button triggers score and initials to be added -->
+                                <button type="submit" class="btn btn-success  ml-2">Submit</button>
+                              </form>
+                        </div>
+                    </div>
+                    <div id="answerStatus" class=" card-footer text-center d-none">
+                        
                     </div>
                 </div>
         </section>
