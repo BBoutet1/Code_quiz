@@ -17,8 +17,9 @@ var questionsList = [
   {
         question: "Which HTML is correct for referencing an external stylesheet",
         answers: [ "<link src=\"stylesheet\" type=\"text/css\" href\style.css\" />",
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
-                 "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"]
+                    "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"]
+                 
     },
 
    {
@@ -89,23 +90,54 @@ var i= 0; // question number
 
 $(document).ready(function(){
 
- 
-/***  Processing the selections  ****/
+    var timeLeft = 1000*15*questionsList.length// the timer is a funtion of the quiz length
+        
+
+    function setTime() {
+        var timerInterval = setInterval(function() {
+        timeLeft = timeLeft-1000;
+         var minutes = Math.floor(timeLeft  / (1000 * 60));
+         var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var t= minutes+":"+seconds;
+        $("#time").text(t)
+      
+          if(timeLeft === 0) {
+            clearInterval(timerInterval);
+          }
+          console.log(t);
+          console.log(timeLeft);
+      
+        }, 1000);
+     }
+    
+     if (i==0){
+        setTime();
+     }
+
+     
+/*****  Start and answer selection  *****/
  $("#Start, #b1, #b2, #b3, #b4").click(function(){
+    
 
     $("h4").text(questionsList[i].question) // Question display
     $("#qBtn").addClass("d-flex flex-column float-left");
     $("h6, #Start, #b3, #b4").addClass("d-none"); // minimum question 1 and 3 -> hide buttons 3 and 4
-    $(".card-footer").removeClass("d-none");
     
     var score = $("#score").text();
 
+    /** Processing the selections  **/
     if(i<(questionsList.length-1)){
+  
         /***  Saving the question i answers list and its length  ****/
         var answersArray = questionsList[i].answers; // answer list                    
         var numAnswers = answersArray.length; // answers list length
 
         var chosedAnswer = $(this).text(); // selected answer
+
+ 
+    
+        console.log($(this).id);
+
         chosedAnswer = chosedAnswer.substring(3); // removing the number in the sected answer
 
         /***  Processing the relation "question - answer list - selected answer  ****/
@@ -129,8 +161,8 @@ $(document).ready(function(){
         var goodAnswer = goodAnswers[i-1];
         if (i>0){
             if (chosedAnswer == goodAnswer) {
-                 $("#cardfoot").text("Correct!"); 
-                 $(".card-footer").removeClass("text-danger");
+                $("#cardfoot").text("Correct!"); 
+                 $(".card-footer").removeClass("text-danger d-none");
                  $(".card-footer").addClass("text-success"); 
 
                 /***  Counting the score  ****/
@@ -139,22 +171,36 @@ $(document).ready(function(){
             } 
             else if (chosedAnswer != goodAnswer){
                 $("#cardfoot").text("Wrong!");
-                $(".card-footer").removeClass("text-success"); 
-                $(".card-footer").addClass("text-danger");     
+                $(".card-footer").removeClass("text-success d-none"); 
+                $(".card-footer").addClass("text-danger");
+                timeLeft -=10000     
             }  
+         
+          
+             
             console.log(score);
+         
         }
              
 
                 
        } 
-        else if (i=(questionsList.length-1)){
+       /*** Quiz ended **/
+        else if (i=(questionsList.length-1)  ||  timeLeft==0  ){ 
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $("h6").text("All done!")
             $("#finalScore").removeClass("d-none")
             $("#score").text(score+" / "+questionsList.length);
         }
-            i++;   
+
+        setTimeout(timer, 800);
+        function timer (){
+        $(".card-footer").addClass("d-none");  
+
+        }
+            i++; 
+
+         
   
     });
 });
