@@ -17,14 +17,14 @@
                      <h3 class="d-inline"> View high score:</h3> <h3 id="highscore" class="d-inline"></h3>
                 </div>
                 <div  class="col-lg-6 text-center">
-                     <h3 class="d-inline"> time: </h3> <h3 id="score" class="d-inline">0</h3>
+                     <h3 class="d-inline"> time: </h3> <h3 id="time" class="d-inline">0</h3>
                 </div>
             </section>
         </header>
         <main>
             <section class="container">    
                 <div class="card">
-                    <h3 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h3>
+                    <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
                     <div class="card-body">
                         <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secodes</h6>
                         <div id="qBtn" class="text-center">
@@ -35,7 +35,7 @@
                             <button id="b4" type="button" class="btn btn-success mb-2 d-none"></button>                    
                         </div>
                         <div id=finalScore class="d-none">
-                            <div>Your final score is: </div>
+                            <div>Your final score is : <h6 id=score  class="d-inline">0</h6></div>
                             <form id="initials" class="form-inline">
                                 <label for="user-input" class="mr-2"> Add your initials</label>
                                 <input type="text" id="movie-input"><br>
@@ -44,8 +44,8 @@
                               </form>
                         </div>
                     </div>
-                    <div class=" card-footer text-center d-none">
-                        
+                    <div class=" card-footer text-center d-none"> 
+                        <h5 id=cardfoot></h5>
                     </div>
                 </div>
         </section>

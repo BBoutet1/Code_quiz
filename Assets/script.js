@@ -89,17 +89,17 @@ var i= 0; // question number
 
 $(document).ready(function(){
 
-/***  Starting the quiz and Initialize the score  ****/
-    var score;
-   
+ 
 /***  Processing the selections  ****/
  $("#Start, #b1, #b2, #b3, #b4").click(function(){
 
-    $("h6").text(questionsList[i].question) // Question display
+    $("h4").text(questionsList[i].question) // Question display
     $("#qBtn").addClass("d-flex flex-column float-left");
-    $("#Start, #b3, #b4").addClass("d-none"); // minimum question 1 and 3 -> hide buttons 3 and 4
+    $("h6, #Start, #b3, #b4").addClass("d-none"); // minimum question 1 and 3 -> hide buttons 3 and 4
     $(".card-footer").removeClass("d-none");
     
+    var score = $("#score").text();
+
     if(i<(questionsList.length-1)){
         /***  Saving the question i answers list and its length  ****/
         var answersArray = questionsList[i].answers; // answer list                    
@@ -125,24 +125,23 @@ $(document).ready(function(){
     
         }
 
-        /***  Comparing the sected answer to the right answer and counting the score  ****/
-        
+        /***  Comparing the secledted answer to the right answer and counting the score  ****/
         var goodAnswer = goodAnswers[i-1];
         if (i>0){
             if (chosedAnswer == goodAnswer) {
-              
-                $(".card-footer").text("Correct!"); 
+                 $("#cardfoot").text("Correct!"); 
+                 $(".card-footer").removeClass("text-danger");
+                 $(".card-footer").addClass("text-success"); 
 
                 /***  Counting the score  ****/
-                if ( i<1){
-                     score++;
-                }
-                    
+                score++;   
+                $("#score").text(score); // new score value           
             } 
             else if (chosedAnswer != goodAnswer){
-                $(".card-footer").text("Wrong!");   
+                $("#cardfoot").text("Wrong!");
+                $(".card-footer").removeClass("text-success"); 
+                $(".card-footer").addClass("text-danger");     
             }  
-
             console.log(score);
         }
              
@@ -151,8 +150,9 @@ $(document).ready(function(){
        } 
         else if (i=(questionsList.length-1)){
             $("#b1, #b2, #b3, #b4").addClass("d-none");
-            $("h6").text("All done")
+            $("h6").text("All done!")
             $("#finalScore").removeClass("d-none")
+            $("#score").text(score+" / "+questionsList.length);
         }
             i++;   
   
