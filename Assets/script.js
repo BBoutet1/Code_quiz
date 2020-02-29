@@ -1,24 +1,24 @@
 
-//NOTE: In the code "Answer1" is always the right answer.
 
+/***  List of questions and corresponding list of answer choices  ****/
 var questionsList = [
     {
-        question: "What is the correct  HTML5 doctype?",
-       answers : [   "<DOCTYPE html>","<!DOCTYPE html>","<!DOCTYPE html5>",]
+       question: "What is the correct  HTML5 doctype?", // the question
+       answers : [   "<DOCTYPE html>","<!DOCTYPE html>","<!DOCTYPE html5>"] // answer choices
     },
    {
         question: "Which tag start a numbered list?",
-        answers: [ "<al>", "<ol>","<ul>", "<li>",]
+        answers: [ "<al>", "<ol>","<ul>", "<li>"]
     },
   {
         question: "Inline elements are normally displayed without starting a new line.",
-        answers: [ "False","True",]
+        answers: [ "False","True"]
     },
   {
         question: "Which HTML is correct for referencing an external stylesheet",
         answers: [ "<link src=\"stylesheet\" type=\"text/css\" href\style.css\" />",
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
-                 "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",]
+                 "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"]
     },
 
    {
@@ -36,7 +36,7 @@ var questionsList = [
 
     {
         question: "The external JavaScript file contains the <script> tag.",
-        answers: [ "True", "Faste"]
+        answers: [ "True", "False"]
     },
    {
         question : "How does a FOR loop start?",
@@ -73,64 +73,88 @@ var questionsList = [
     },
    {
         question : "What scripting language is jQuery written in?",
-        answer1: ["css", "Javascript","C++"]
+        answers: ["css", "Javascript","C++"]
    }
 
-];
+]
+
+/***  List of all good answers from question 1 (second element of each answers array for each question) ****/
+var goodAnswers=[];
+for (var i=0; i<questionsList.length; i++){
+    goodAnswers.push(questionsList[i].answers[1]);
+ }
 
 
-
-var i= -1;
+var i= 0; // question number
 
 $(document).ready(function(){
 
- // Starting the quiz
- $("#b1, #b2, #b3, #b4").click(function(){
-      i++;
+/***  Starting the quiz and Initialize the score  ****/
+    var score;
+   
+/***  Processing the selections  ****/
+ $("#Start, #b1, #b2, #b3, #b4").click(function(){
 
-    if(i<(questionsList.length-1)){
+    $("h6").text(questionsList[i].question) // Question display
+    $("#qBtn").addClass("d-flex flex-column float-left");
+    $("#Start, #b3, #b4").addClass("d-none"); // minimum question 1 and 3 -> hide buttons 3 and 4
+    $(".card-footer").removeClass("d-none");
     
-       $("h6").text(questionsList[i].question)
-       $("#qBtn").addClass("d-flex flex-column float-left");
-       $("#b3, #b4").addClass("d-none");
-       $("#answerStatus").removeClass("d-none");
-            var answersArray = questionsList[i].answers; // Storing the answers array
-            var numAnswers = answersArray.length; // Storing the initial length
-            var randomAnswers = []; // Randomly organized answers array
+    if(i<(questionsList.length-1)){
+        /***  Saving the question i answers list and its length  ****/
+        var answersArray = questionsList[i].answers; // answer list                    
+        var numAnswers = answersArray.length; // answers list length
 
-            console.log("Initial start " +answersArray)
+        var chosedAnswer = $(this).text(); // selected answer
+        chosedAnswer = chosedAnswer.substring(3); // removing the number in the sected answer
 
-            //moving randomly in the storage array
-            for (var j=0; j<numAnswers; j++) {
-                var random = Math.floor(Math.random() * (answersArray.length-1));
-                randomAnswers.push(answersArray[random]);
-                answersArray.splice(random,1);
-                var k =j+1
-                var aNum = String.fromCharCode(64+k); // answer number (capital letter)
-               $("#b"+k).text(aNum+". "+randomAnswers[j]);
-               $("#b"+k).addClass("text-left");
-               $("#b"+k).removeClass("d-none");
-               $("#answerStatus").addClass("d-none");
-               $("#qBtn"+k).removeClass("text-center");
+        /***  Processing the relation "question - answer list - selected answer  ****/
+        var randomAnswers = []; 
+        for (var j=0; j<numAnswers; j++) {
+            /***  Randomly changing the right answer position in the choices list   ****/
+            var random = Math.floor(Math.random() * (answersArray.length-1));
+            randomAnswers.push(answersArray[random]);
+            answersArray.splice(random,1);
+            /***  Writting the answers in button   ****/
 
-               
-             
+            var k =j+1; // bk is the id of the answer button k
+            var aNum = String.fromCharCode(64+k); // Numbering the answers from A to D
+            $("#b"+k).text(aNum+". "+randomAnswers[j]);
+            $("#b"+k).addClass("text-left");
+            $("#b"+k).removeClass("d-none");
+    
+        }
+
+        /***  Comparing the sected answer to the right answer and counting the score  ****/
+        
+        var goodAnswer = goodAnswers[i-1];
+        if (i>0){
+            if (chosedAnswer == goodAnswer) {
+              
+                $(".card-footer").text("Correct!"); 
+
+                /***  Counting the score  ****/
+                if ( i<1){
+                     score++;
+                }
+                    
             } 
-            //var x = document.getElementsByClassName("anchors")[0].id;
-          /*   if (this.text() ==questionsList[1].answers){
-                $("#answerStatus").text("Correct!");                     
-            }
-            else{
-                $("#answerStatus").text("Wrong!");     
-            } */
-            
+            else if (chosedAnswer != goodAnswer){
+                $(".card-footer").text("Wrong!");   
+            }  
+
+            console.log(score);
+        }
+             
+
+                
        } 
-       else if (i=(questionsList.length-1)){
+        else if (i=(questionsList.length-1)){
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $("h6").text("All done")
             $("#finalScore").removeClass("d-none")
-            }
-                
+        }
+            i++;   
+  
     });
 });
-
