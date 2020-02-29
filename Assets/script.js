@@ -110,14 +110,13 @@ $(document).ready(function(){
         }, 1000);
      }
     
-     if (i==0){
-        setTime();
-     }
-
-     
+      
 /*****  Start and answer selection  *****/
  $("#Start, #b1, #b2, #b3, #b4").click(function(){
     
+    if (i==0){
+        setTime();
+     }
 
     $("h4").text(questionsList[i].question) // Question display
     $("#qBtn").addClass("d-flex flex-column float-left");
