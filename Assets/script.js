@@ -79,127 +79,125 @@ var questionsList = [
 
 ]
 
-/***  List of all good answers from question 1 (second element of each answers array for each question) ****/
+/*****  List of all good answers(second element of each answers array for each question) *****/
 var goodAnswers=[];
 for (var i=0; i<questionsList.length; i++){
     goodAnswers.push(questionsList[i].answers[1]);
  }
 
-
-var i= 0; // question number
+/*****  Question number (array index)  *****/
+var i= 0;
 
 $(document).ready(function(){
 
-    var timeLeft = 1000*15*questionsList.length// the timer is a funtion of the quiz length
-        
-
-    function setTime() {
-        var timerInterval = setInterval(function() {
-        timeLeft = timeLeft-1000;
-         var minutes = Math.floor(timeLeft  / (1000 * 60));
-         var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        var t= minutes+":"+seconds;
-        $("#time").text(t)
-      
-          if(timeLeft === 0) {
-            clearInterval(timerInterval);
-          }
-          console.log(t);
-          console.log(timeLeft);
-      
-        }, 1000);
-     }
+/*****  Setting the timer  *****/
+var timeLeft = 1000*10*questionsList.length// the timer is a funtion of the quiz length
+function setTime() {
+    var timerInterval = setInterval(function() {
+    timeLeft = timeLeft-1000;
+    var minutes = Math.floor(timeLeft  / (1000 * 60)); // Conversion in minutes
+    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    var t= minutes+":"+seconds; // time in minutes ans secondes
+    $("#time").text(t)
+    
+        if(timeLeft === 0) {
+        clearInterval(timerInterval);
+        }
+   
+    }, 1000);
+}
     
       
-/*****  Start and answer selection  *****/
+/*****  Start and answer buttons listener  *****/
  $("#Start, #b1, #b2, #b3, #b4").click(function(){
     
+    /**** Timer started once afer Start button is clicked****/
     if (i==0){
         setTime();
      }
 
-    $("h4").text(questionsList[i].question) // Question display
-    $("#qBtn").addClass("d-flex flex-column float-left");
-    $("h6, #Start, #b3, #b4").addClass("d-none"); // minimum question 1 and 3 -> hide buttons 3 and 4
-    
+     /**** Getting the html score value****/
     var score = $("#score").text();
-
-    /** Processing the selections  **/
-    if(i<(questionsList.length-1)){
-  
-        /***  Saving the question i answers list and its length  ****/
-        var answersArray = questionsList[i].answers; // answer list                    
-        var numAnswers = answersArray.length; // answers list length
-
-        var chosedAnswer = $(this).text(); // selected answer
-
  
+     /**** While  is not reached AND timer left time is not 0 ****/    
+     if(i<(questionsList.length-1) && timeLeft!=0 ){
+        $("h4").text(questionsList[i].question) // Question i displayed
+        $("#qBtn").addClass("d-flex flex-column float-left");
+        $("h6, #Start, #b3, #b4").addClass("d-none"); //Remove the instructions (h6) and start button/ No answers 3 and 4 in all questions
     
-        console.log($(this).id);
+           
+        /***  Saving the question number i and its answers' array  ****/
+        var answersArray = questionsList[i].answers; // answers array                    
+        var numAnswers = answersArray.length; // answers array length
 
-        chosedAnswer = chosedAnswer.substring(3); // removing the number in the sected answer
+        /***  Saving the choosed answer***/
+        var chosedAnswer = $(this).text(); // selected answer
+        chosedAnswer = chosedAnswer.substring(3); // removing the number to match(compare) with the good answer
 
-        /***  Processing the relation "question - answer list - selected answer  ****/
-        var randomAnswers = []; 
+        /***  Randomly reoganizing the question i answers array ***/
+        var randomAnswers = []; // random answers array
         for (var j=0; j<numAnswers; j++) {
-            /***  Randomly changing the right answer position in the choices list   ****/
             var random = Math.floor(Math.random() * (answersArray.length-1));
             randomAnswers.push(answersArray[random]);
             answersArray.splice(random,1);
-            /***  Writting the answers in button   ****/
-
-            var k =j+1; // bk is the id of the answer button k
-            var aNum = String.fromCharCode(64+k); // Numbering the answers from A to D
+            
+            /**  Writting the answers in button b1 to bk (k = 2 to 4)  **/
+            var k =j+1;
+            var aNum = String.fromCharCode(64+k); // answer number (from A to D)
             $("#b"+k).text(aNum+". "+randomAnswers[j]);
             $("#b"+k).addClass("text-left");
             $("#b"+k).removeClass("d-none");
-    
         }
 
-        /***  Comparing the secledted answer to the right answer and counting the score  ****/
+        /***  Comparing the seclected answer to the good answer and updating the score the score  ****/
         var goodAnswer = goodAnswers[i-1];
         if (i>0){
             if (chosedAnswer == goodAnswer) {
                 $("#cardfoot").text("Correct!"); 
                  $(".card-footer").removeClass("text-danger d-none");
                  $(".card-footer").addClass("text-success"); 
-
-                /***  Counting the score  ****/
                 score++;   
-                $("#score").text(score); // new score value           
+                $("#score").text(score); // writing the new score value           
             } 
             else if (chosedAnswer != goodAnswer){
                 $("#cardfoot").text("Wrong!");
                 $(".card-footer").removeClass("text-success d-none"); 
                 $(".card-footer").addClass("text-danger");
-                timeLeft -=10000     
+                timeLeft -=10000 // -10 secondes penalty for a wrong answer    
             }  
          
-          
-             
-            console.log(score);
-         
         }
-             
-
-                
+         /*** Next question ***/
+         i++;                
        } 
-       /*** Quiz ended **/
-        else if (i=(questionsList.length-1)  ||  timeLeft==0  ){ 
+       /*** Quiz ended at after last question or if the left time is 0 secondes **/
+        else { 
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $("h6").text("All done!")
             $("#finalScore").removeClass("d-none")
             $("#score").text(score+" / "+questionsList.length);
+               /****  Saving the score ****/
+            var highScores = [];
+            var userScore ={
+                name:"",
+                uScore: 0,
+            };
+            $("#addName").on("click", function() {
+                // This line grabs the input from the textbox
+                userScore.name = $("#scoreInput").val().trim();
+                userScore.uScore = score;
+            });
         }
-
+      
         setTimeout(timer, 800);
         function timer (){
         $(".card-footer").addClass("d-none");  
 
         }
-            i++; 
-
+       
+        
          
-  
+
     });
+    
 });

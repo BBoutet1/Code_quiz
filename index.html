@@ -14,7 +14,21 @@
         <header class="jumbotron jumbotron-fluid">
             <section class="row">
                 <div class="col-lg-6 text-center">
-                     <h3 class="d-inline"> View high score:</h3> <h3 id="highscore" class="d-inline"></h3>
+                     <h3 class="d-inline"> View high score:</h3>
+                     <table class="table table-sucess">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
                 <div  class="col-lg-6 text-center">
                      <h3 class="d-inline"> time: </h3> <h3 id="time" class="d-inline">0</h3>
@@ -26,7 +40,7 @@
                 <div class="card">
                     <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
                     <div class="card-body">
-                        <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secodes</h6>
+                        <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
                         <div id="qBtn" class="text-center">
                             <button id="Start" type="button" class="btn btn-success mb-2">Start Quiz</button>
                             <button id="b1" type="button" class="btn btn-success mb-2 d-none"></button>
@@ -36,11 +50,11 @@
                         </div>
                         <div id=finalScore class="d-none">
                             <div>Your final score is : <h6 id=score  class="d-inline">0</h6></div>
-                            <form id="initials" class="form-inline">
+                            <form id="initials" class="form-inline" required>
                                 <label for="user-input" class="mr-2"> Add your initials</label>
-                                <input type="text" id="movie-input"><br>
+                                <input type="text" id="scoreInput"><br>
                                 <!-- Button triggers score and initials to be added -->
-                                <button type="submit" class="btn btn-success  ml-2">Submit</button>
+                                <button id="addName" type="button" class="btn btn-success  ml-2">Submit</button>
                               </form>
                         </div>
                     </div>
