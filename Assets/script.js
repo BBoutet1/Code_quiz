@@ -186,6 +186,13 @@ function setTime() {
                 // This line grabs the input from the textbox
                 userScore.name = $("#scoreInput").val().trim();
                 userScore.uScore = score;
+
+                $("#addName, #finalScore").addClass("d-none");
+                $("#back, #clear").removeClass("d-none");
+                $("h4").text("Hightscores");
+                $("h5").prepend(userScore.name+"|"+score);
+
+
             });
         }
       
