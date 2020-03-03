@@ -23,11 +23,7 @@
                             <th>Score</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td></td>
-                            <td></td>
-                          </tr>
+                        <tbody id="tb">
                         </tbody>
                       </table>
                 </div>
@@ -55,12 +51,13 @@
                                 <label for="user-input" class="mr-2"> Add your initials</label>
                                 <input type="text" id="scoreInput"><br>
                                 <!-- Button triggers score and initials to be added -->
-                                <button id="addName" type="button" class="btn btn-success  ml-2">Submit</button>
+                                <input id="addName" type="submit" class="btn btn-success  ml-2" value="Submit">
+                            <!-- </button> -->
                               </form>
                         </div>
                                  
                         <div id="highscores" class="text-center">
-                            <h5></h5>
+                            <h7></h7>
                             <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
                             <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button> 
                         </div>

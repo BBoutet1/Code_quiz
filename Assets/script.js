@@ -4,6 +4,20 @@ var questionsList=[];
 var answersArray = [];
 /***  List answers of good answer by question  ***/
 var goodAnswers=[];
+var sortedHighscors=[];
+
+/** Highscores array **/
+var highScores = [];
+
+/** User initials **/
+var name = "";
+
+/** User final score */
+var score = 0;
+
+/** user & score */
+var attempt = []
+
 
 /*** Defining the different list ***/
 function quizfunction(){
@@ -93,8 +107,7 @@ function quizfunction(){
         goodAnswers.push(quizArray[j].answers[1]);
         questionsList.push(quizArray[j].question)
     }
- 
-    console.log("GoodList "+goodAnswers);
+
 };
 
 
@@ -131,7 +144,6 @@ function setTime() {
 
     /**** Timer started once afer "Start Quiz" button is clicked****/
     buttonId = e.target.id;
-    console.log("buton id : "+buttonId);
 
 
     /**** Starting the timer & calling the answers lists ****/
@@ -139,17 +151,15 @@ function setTime() {
         quizfunction();
         timeLeft =  1000*8*questionsList.length// the timer is a funtion of the quiz length
         setTime();
-        console.log("timestart"+timeLeft);
-        console.log("numastart"+i);
-        console.log("length" +questionsList.length)
-        $("#score").text("0");
-        i=0;
+        score = 0;
+        $("#score").text(score);
+        name = "";
     }
 
      /**** Getting the html score value****/
-    var score = $("#score").text();
+    
 
-     /**** While las question  is not reached AND left time is not 0 ****/    
+     /**** While last question  is not reached AND left time is not 0 ****/    
      if(i<(questionsList.length) && timeLeft!=0 ){
         $("h4").text(questionsList[i]) // Question i displayed
         $("#qBtn").addClass("d-flex flex-column float-left");
@@ -179,10 +189,7 @@ function setTime() {
             $("#b"+k).addClass("text-left");
             $("#b"+k).removeClass("d-none");
         }
-       
-        console.log("Good"+goodAnswer);
-        console.log("Chosed"+chosedAnswer);
-    
+   
         /***  Comparing the seclected answer to the good answer and updating the score the score  ****/
         if (i>0){
             if (chosedAnswer == goodAnswer) {
@@ -211,31 +218,18 @@ function setTime() {
        } 
        /*** Quiz ended after last question OR if left time 0 secondes **/
         else { 
+            console.log("start: "+ name + "  |  "+ score);
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $("h4").text("All done!")
             if (i<questionsList.length){
-                $("h4").text("Time out!")
+                $("h4").text(i+" questions completed. Time out!")
             }
             $("#finalScore, #addName").removeClass("d-none")
             $("#score").text(score+" / "+questionsList.length);
                /****  Saving the score ****/
-            var highScores = [];
-            var userScore ={
-                name:"",
-                uScore: 0,
-            };
-            $("#addName").on("click", function() {
-                // This line grabs the input from the textbox
-                userScore.name = $("#scoreInput").val().trim();
-                userScore.uScore = score;
-                highScores.push(userScore);
-
-                $("#addName, #finalScore").addClass("d-none");
-                $("#back, #clear").removeClass("d-none");
-                $("h4").text("Hightscores");
-                $("h5").prepend(userScore.name+"   |   "+score);
-                console.log("time before"+timeLeft)
-            });
+          
+            
+           
            
         }
         setTimeout(timer, 800);
@@ -244,8 +238,60 @@ function setTime() {
         }
        
     });
-    $("#back").on("click", function() {
-        console.log("numbefore"+i);
+    $("#addName").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        name = $("#scoreInput").val().trim();
+        if(name ==""){
+            alert("Please, enter your initials")
+        }
+        else{
+                   
+            $("#addName, #finalScore").addClass("d-none");
+            $("#back, #clear").removeClass("d-none");
+                   
+           var attempt=[ {uName:name, uScore:score}];
+           highScores = highScores.concat(attempt); 
+           console.log(attempt);
+           console.log(highScores);
+           
+           
+           highScores.sort(function (a, b) {
+               return b.uScore - a.uScore;
+             });
+           console.log(highScores);
+          
+          var x = 0;
+          var z = ""; 
+          var scoreRow = [];
+          $("#tb").empty();
+ 
+        /*** No more than 6 high score row*/
+        var max =0;
+        if(highScores.length>5){
+            max = 5;
+            
+        }
+        else{
+            max =highScores.length
+        }
+        for(var k=0; k<max; k++){
+            //console.log(highScores[1].uName);
+            var rank = k+1;
+            z = highScores[k].uScore;
+            x =highScores[k].uName;
+            scoreRow[k] = "<tr><td>"+rank+"</td><td>"+x+"</td> <td>"+z+"</td></tr>"
+            $("#tb").append(scoreRow[k]);
+          }
+          $("h4").text("Highest cores");
+          $("h7").append("<table class=\"table table-sucess\"><thead><tr><th>N°</th><th>Name</th><th>Score</th></tr></thead><tbody>"+ scoreRow[0] +"</tbody></table>");
+
+       
+       }
+   
+    });
+
+    $("#back, #clear").on("click", function(e) {
         $("h4").text("Coding Quiz challenge");
         $("h6, #Start").removeClass("d-none"); 
         $("#back, #clear").addClass("d-none");
@@ -255,6 +301,18 @@ function setTime() {
         $("#time").text("0:0")
         i =0;
 
+        var test =0;
+        butId = e.target.id;
+        console.log(butId);
+        console(butId =="Clear");
+
+        /**** Starting the timer & calling the answers lists ****/
+        if (butId =="Clear"){
+            $("h7, #tb").empty();
+            var test=10;
+            
+        }
+        
      });
  
 });
