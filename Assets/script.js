@@ -142,7 +142,7 @@ function setTime() {
 /*****  Start and answer buttons listener  *****/
  $( "#Start, #b1, #b2, #b3, #b4").click(function(e){
 
-    /**** Timer started once afer "Start Quiz" button is clicked****/
+    /**** Clearing the scores under conditions****/
     buttonId = e.target.id;
 
 
@@ -218,7 +218,6 @@ function setTime() {
        } 
        /*** Quiz ended after last question OR if left time 0 secondes **/
         else { 
-            console.log("start: "+ name + "  |  "+ score);
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $("h4").text("All done!")
             if (i<questionsList.length){
@@ -252,14 +251,11 @@ function setTime() {
                    
            var attempt=[ {uName:name, uScore:score}];
            highScores = highScores.concat(attempt); 
-           console.log(attempt);
-           console.log(highScores);
-           
+          
            
            highScores.sort(function (a, b) {
                return b.uScore - a.uScore;
              });
-           console.log(highScores);
           
           var x = 0;
           var z = ""; 
@@ -276,7 +272,6 @@ function setTime() {
             max =highScores.length
         }
         for(var k=0; k<max; k++){
-            //console.log(highScores[1].uName);
             var rank = k+1;
             z = highScores[k].uScore;
             x =highScores[k].uName;
@@ -292,6 +287,9 @@ function setTime() {
     });
 
     $("#back, #clear").on("click", function(e) {
+
+      
+
         $("h4").text("Coding Quiz challenge");
         $("h6, #Start").removeClass("d-none"); 
         $("#back, #clear").addClass("d-none");
@@ -302,12 +300,10 @@ function setTime() {
         i =0;
 
         var test =0;
-        butId = e.target.id;
-        console.log(butId);
-        console(butId =="Clear");
-
+        btnId = e.target.id;
         /**** Starting the timer & calling the answers lists ****/
-        if (butId =="Clear"){
+       
+        if (btnId =="clear"){
             $("h7, #tb").empty();
             var test=10;
             
