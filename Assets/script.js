@@ -1,29 +1,20 @@
-/***  List of questions ***/
-var questionsList=[];
-/***  List of all answers by question  ***/
-var answersArray = [];
-/***  List answers of good answer by question  ***/
-var goodAnswers=[];
-var sortedHighscors=[];
+/***  Variables ***/
+var questionsList=[]; // List of all questions
+var answersArray = []; //List  of answers for all questions
+var goodAnswers=[]; // List of all good answers
+var highScores = []; // List of at the maximum 5 highest scores
+var name = ""; // user Initials
+var score = 0; // User final score
+var attempt = [] // user initials - score objet(one element array)
 
-/** Highscores array **/
-var highScores = [];
-
-/** User initials **/
-var name = "";
-
-/** User final score */
-var score = 0;
-
-/** user & score */
-var attempt = []
-
-
-/*** Defining the different list ***/
+/*** Defining the different questions  and answers***/
 function quizfunction(){
-    questionsList=[]; // initialisation (empty)
+    /*** Re-initializATION ***/
+    questionsList=[]; 
     answersArray = [];
     goodAnswers=[];
+
+    
     var quizArray= [
         {
         question: "What is the correct  HTML5 doctype?", // the question
@@ -112,7 +103,7 @@ function quizfunction(){
 
 $(document).ready(function(){
   
-    /** Score table display */
+    /** Highscores table hiden behind "-- View all high scores -"*/
     $("table").hide();
 
     $("#viewTable").mouseenter(function(){
@@ -149,11 +140,9 @@ function setTime() {
 /*****  Start and answer buttons listener  *****/
  $( "#Start, #b1, #b2, #b3, #b4").click(function(e){
 
-    /**** Clearing the scores under conditions****/
+    
+    /**** Re-itinitialization through with start button clicked ****/
     buttonId = e.target.id;
-
-
-    /**** Starting the timer & calling the answers lists ****/
     if (buttonId == "Start"){
         quizfunction();
         timeLeft =  1000*8*questionsList.length// the timer is a funtion of the quiz length
@@ -163,17 +152,16 @@ function setTime() {
         name = "";
     }
 
-     /**** Getting the html score value****/
     
-
      /**** While last question  is not reached AND left time is not 0 ****/    
      if(i<(questionsList.length) && timeLeft!=0 ){
-        $("h4").text(questionsList[i]) // Question i displayed
+         /*** Displaying question i and its answers */
+        $("h4").text(questionsList[i])
         $("#qBtn").addClass("d-flex flex-column float-left");
-        $("h6, #Start, #b3, #b4").addClass("d-none"); //Remove the instructions (h6) and start button/ No answers 3 and 4 in all questions
+        $("h6, #Start, #b3, #b4").addClass("d-none"); 
         
         var answers = answersArray[i];
-        var numAnswers = answers.length; // answers array length
+        var numAnswers = answers.length; 
 
         
        /***  Saving the choosed answer***/
@@ -232,52 +220,52 @@ function setTime() {
             }
             $("#finalScore, #addName").removeClass("d-none")
             $("#score").text(score+" / "+questionsList.length);
-               /****  Saving the score ****/
-          
-            
-           
-           
+               /****  Saving the score ****/    
         }
+
+        /** Answers status (Right, Wrong )  display */
         setTimeout(timer, 800);
         function timer (){
         $(".card-footer").addClass("d-none");  
         }
        
     });
+
+    /*** Saving the initials */
     $("#addName").on("click", function(event) {
         event.preventDefault();
-        // This line grabs the input from the textbox
+        /***grabing the intials from the textbox**/
         name = $("#scoreInput").val().trim();
         if(name ==""){
+            /** Null entry */
             alert("Please, enter your initials")
         }
-        else{
-                   
+        else{               
             $("#addName, #finalScore").addClass("d-none");
             $("#back, #clear").removeClass("d-none");
-                   
+            
+            /** High score table in decreasing order */ 
            var attempt=[ {uName:name, uScore:score}];
-           highScores = highScores.concat(attempt); 
-          
-           
+           highScores = highScores.concat(attempt);
            highScores.sort(function (a, b) {
                return b.uScore - a.uScore;
              });
           
-          var x = 0;
-          var z = ""; 
+          var x = 0; // local score
+          var z = "";  // local initials
           var scoreRow = [];
           $("#tb").empty();
  
-        /*** No more than 6 high score row*/
+        /*** No more than 6 high scores rows or delete the lowest*/
         var max =0;
         if(highScores.length>5){
-            max = 5;
-            
+            max = 5; 
         }
         else{
             max =highScores.length
         }
+
+        /** Generationg the ordered table */
         for(var k=0; k<max; k++){
             var rank = k+1;
             z = highScores[k].uScore;
@@ -294,9 +282,9 @@ function setTime() {
    
     });
 
-    $("#back, #clear").on("click", function(e) {
+    /** Return and clear scores process*/
 
-      
+     $("#back, #clear").on("click", function(e) {
 
         $("h4").text("Coding Quiz challenge");
         $("h6, #Start").removeClass("d-none"); 
@@ -309,14 +297,10 @@ function setTime() {
 
         $("h7").hide();
 
-        var test =0;
         btnId = e.target.id;
-        /**** Starting the timer & calling the answers lists ****/
-       
+          
         if (btnId =="clear"){
             $("h7, #tb").empty();
-            var test=10;
-            
         }
         
         
