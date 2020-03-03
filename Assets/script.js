@@ -110,11 +110,18 @@ function quizfunction(){
 
 };
 
-
-
-
-
 $(document).ready(function(){
+  
+    /** Score table display */
+    $("table").hide();
+
+    $("#viewTable").mouseenter(function(){
+        $("table").show();
+      });
+    
+      $("#viewTable").mouseleave(function(){
+        $("table").hide();
+      });
 
 /****  Start from question 1st  ****/
 var i= 0;   
@@ -278,9 +285,10 @@ function setTime() {
             scoreRow[k] = "<tr><td>"+rank+"</td><td>"+x+"</td> <td>"+z+"</td></tr>"
             $("#tb").append(scoreRow[k]);
           }
-          $("h4").text("Highest cores");
+          $("h4").text("Highest score");
+          $("h7").empty();
           $("h7").append("<table class=\"table table-sucess\"><thead><tr><th>N°</th><th>Name</th><th>Score</th></tr></thead><tbody>"+ scoreRow[0] +"</tbody></table>");
-
+          $("h7").show();
        
        }
    
@@ -299,6 +307,8 @@ function setTime() {
         $("#time").text("0:0")
         i =0;
 
+        $("h7").hide();
+
         var test =0;
         btnId = e.target.id;
         /**** Starting the timer & calling the answers lists ****/
@@ -308,6 +318,7 @@ function setTime() {
             var test=10;
             
         }
+        
         
      });
  
