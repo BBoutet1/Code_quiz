@@ -1,12 +1,11 @@
-# 04 Code Quiz
+# Code Quiz
 
 This app is a timed code quiz with multiple-choice questions. It runs in the browser and features dynamically updated HTML and CSS powered by JavaScript code. cleaned and  responsive interface, ensuring that adaptability to multiple screen sizes.
 
 ## User Story
 
 ```
-AS A coding bootcamp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+I WANT to take a timed quiz o that stores high scores
 SO THAT I can gauge my progress compared to my peers
 ```
 
@@ -24,4 +23,6 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
+WHEN I mouse over the "- View high scores -"
+THEN I see the 5 five highest scores
 ```
