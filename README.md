@@ -4,10 +4,10 @@ This app is a timed code quiz with multiple-choice questions. It runs in the bro
 
 ## Tools
 
-###### HTML
-### CSS
-### Bootstrap
-### Javascript
+##### HTML
+##### CSS
+##### Bootstrap
+##### Javascript
 
 ## Functionalities
 
