@@ -29,7 +29,7 @@ This app is a timed code quiz with multiple-choice questions. It runs in the bro
 ## Remarque
 
 ```
-Adding or removing a question in the code is easy by just adding or removing your question object in an an array. 
+Adding or removing a question in the code is easy... 
 ```
 
 
