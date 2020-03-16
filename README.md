@@ -8,6 +8,7 @@ This app is a timed code quiz with multiple-choice questions. It runs in the bro
 ##### CSS
 ##### Bootstrap
 ##### Javascript
+##### jQuery
 
 ## Functionalities
 
