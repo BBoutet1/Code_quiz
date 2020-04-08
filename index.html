@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Assets/style.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="Assets/script.js"></script>
-        <title>Code Quiz</title>
-    </head>
-    <body>
-        <header class="jumbotron jumbotron-fluid">
-            <section class="row">
-                <div class="col-lg-6 text-center">
-                     <h3 id="viewTable" class="d-inline"> - View all high scores -</h3>
-                     <table class="table table-sucess">
-                        <thead>
-                          <tr>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="Assets/script.js"></script>
+    <title>Code Quiz</title>
+</head>
+
+<body>
+    <header class="jumbotron jumbotron-fluid">
+        <section class="row">
+            <div class="col-lg-6 text-center">
+                <h3 id="viewTable" class="d-inline"> - View all high scores -</h3>
+                <table class="table table-sucess">
+                    <thead>
+                        <tr>
                             <th>N°</th>
                             <th>Name</th>
                             <th>Score</th>
-                          </tr>
-                        </thead>
-                        <tbody id="tb">
-                        </tbody>
-                      </table>
-                </div>
-                <div  class="col-lg-6 text-center">
-                     <h3 class="d-inline"> time left: </h3> <h3 id="time" class="d-inline">0:0</h3>
-                </div>
-            </section>
-        </header>
-        <main>
-            <section class="container">    
-                <div class="card">
-                    <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
-                    <div class="card-body">
-                        <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
-                        <div id="qBtn" class="text-center">
-                            <button id="Start" type="button" class="btn btn-success mb-2">Start Quiz</button>
-                            <button id="b1" type="button" class="btn btn-success mb-2 d-none"></button>
-                            <button id="b2" type="button" class="btn btn-success mb-2 d-none"></button>
-                            <button id="b3" type="button" class="btn btn-success mb-2 d-none"></button>
-                            <button id="b4" type="button" class="btn btn-success mb-2 d-none"></button>                    
+                        </tr>
+                    </thead>
+                    <tbody id="tb">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6 text-center">
+                <h3 class="d-inline"> time left: </h3>
+                <h3 id="time" class="d-inline">0:0</h3>
+            </div>
+        </section>
+    </header>
+    <main>
+        <section class="container">
+            <div class="card">
+                <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
+                <div class="card-body">
+                    <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
+                    <div id="qBtn" class="text-center">
+                        <button id="Start" type="button" class="btn btn-success mb-2">Start Quiz</button>
+                        <button id="b1" type="button" class="btn btn-success mb-2 d-none"></button>
+                        <button id="b2" type="button" class="btn btn-success mb-2 d-none"></button>
+                        <button id="b3" type="button" class="btn btn-success mb-2 d-none"></button>
+                        <button id="b4" type="button" class="btn btn-success mb-2 d-none"></button>
+                    </div>
+                    <div id=finalScore class="d-none">
+                        <div>Your final score is :
+                            <h6 id=score class="d-inline">0</h6>
                         </div>
-                        <div id=finalScore class="d-none">
-                            <div>Your final score is : <h6 id=score  class="d-inline">0</h6></div>
-                            <form id="initials" class="form-inline" required>
-                                <label for="user-input" class="mr-2"> Add your initials</label>
-                                <input type="text" id="scoreInput"><br>
-                                <!-- Button triggers score and initials to be added -->
-                                <input id="addName" type="submit" class="btn btn-success  ml-2" value="Submit">
+                        <form id="initials" class="form-inline" required>
+                            <label for="user-input" class="mr-2"> Add your initials</label>
+                            <input type="text" id="scoreInput"><br>
+                            <!-- Button triggers score and initials to be added -->
+                            <input id="addName" type="submit" class="btn btn-success  ml-2" value="Submit">
                             <!-- </button> -->
-                              </form>
-                        </div>
-                                 
-                        <div id="highscores" class="text-center">
-                            <h7></h7>
-                            <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
-                            <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button> 
-                        </div>
+                        </form>
                     </div>
-                    <div class=" card-footer text-center d-none"> 
-                        <h5 id=cardfoot></h5>
+
+                    <div id="highscores" class="text-center">
+                        <h7></h7>
+                        <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
+                        <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button>
                     </div>
                 </div>
+                <div class=" card-footer text-center d-none">
+                    <h5 id=cardfoot></h5>
+                </div>
+            </div>
         </section>
     </main>
-      </body>
+</body>
+
 </html>

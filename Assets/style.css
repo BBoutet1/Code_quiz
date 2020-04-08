@@ -1,12 +1,10 @@
-
-main{
+main {
     max-width: 600px;
     min-width: 300px;
     margin: auto;
 }
 
-.jumbotron{
-    padding-bottom:  20px;
+.jumbotron {
+    padding-bottom: 20px;
     padding-top: 20px;
 }
-
