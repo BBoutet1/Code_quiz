@@ -8,3 +8,18 @@ main {
     padding-bottom: 20px;
     padding-top: 20px;
 }
+
+.answersContainer {
+    display: block;
+    margin: auto;
+    overflow: auto;
+}
+
+.answer {
+    float: left;
+}
+
+form {
+    width: 400px;
+    margin: auto;
+}

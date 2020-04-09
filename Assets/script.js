@@ -107,14 +107,14 @@ $(document).ready(function() {
     /** Highscores table hiden initially behind *
      * 
      */
-    $("table").hide();
+    $("tbody").hide();
 
-    $("#viewTable").mouseenter(function() {
-        $("table").show();
+    $(".viewTable, table").mouseenter(function() {
+        $("tbody").show();
     });
 
-    $("#viewTable").mouseleave(function() {
-        $("table").hide();
+    $(".viewTable, table").mouseleave(function() {
+        $("tbody").hide();
     });
 
 
@@ -139,12 +139,14 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    /*****  Start and answer buttons listener  *****/
+
+
+    /*****  start and answer buttons listener  *****/
     $(".btn").click(function(e) {
 
         /**** Re-itinitialization with start button click****/
         buttonId = e.target.id;
-        if (buttonId == "Start") {
+        if (buttonId == "start") {
             quizfunction();
             timeLeft = 1000 * 8 * questionsList.length // the timer is a funtion of the quiz length
             setTime();
@@ -184,8 +186,7 @@ $(document).ready(function() {
                 const answers = answersArray[questionNumber + 1]; // ansers array
                 const numAnswers = answers.length;
                 $("h4").text(questionsList[questionNumber + 1])
-                $("#qBtn").addClass("d-flex flex-column float-left");
-                $("h6, #Start, #b3, #b4").addClass("d-none");
+                $("h6, #start, #b3, #b4").addClass("d-none");
 
                 /***  Randomly reoganizing the question i answers array ***/
                 var randomAnswers = []; // random answers array
@@ -201,6 +202,12 @@ $(document).ready(function() {
                     $("#b" + k).addClass("text-left");
                     $("#b" + k).removeClass("d-none");
                 }
+                //Defining buttons div container ter ()
+                $(".answersContainer").width(550);
+                var btnWidth = Math.max.apply(Math, $(".btn").map(function() { return $(this).outerWidth(); }).get());
+                console.log(btnWidth);
+                $(".answersContainer").width(btnWidth);
+                console.log($(".answersContainer").width())
             }
 
             //moving to the next question
@@ -226,6 +233,7 @@ $(document).ready(function() {
             $("#finalScore, #addName").removeClass("d-none")
             const scoPercent = (score / questionsList.length) * 100
             $("#score").text(scoPercent + " % ");
+            $("#back, #clear").removeClass("d-none");
         }
 
     });
@@ -253,7 +261,7 @@ $(document).ready(function() {
             var x = 0; // score local variable
             var z = ""; // initials local variable
             var scoreRow = [];
-            $("#tb").empty();
+            $("tbody").empty();
 
             /*** No more than 5 high scores rows or delete the lowest*/
             while (highScores.length > 5) {
@@ -266,35 +274,37 @@ $(document).ready(function() {
                 z = highScores[k].uScore;
                 x = highScores[k].uName;
                 scoreRow[k] = "<tr><td>" + rank + "</td><td>" + x + "</td> <td>" + z + " %" + "</td></tr>"
-                $("#tb").append(scoreRow[k]);
+                $("tbody").append(scoreRow[k]);
             }
 
-            //Presenting the highest score
+            /** Presenting the highest score **/
             $("h4").text("Highest score");
-            $("h7").empty();
-            $("h7").append("<table class=\"table table-sucess\"><thead><tr><th>N°</th><th>Name</th><th>Score</th></tr></thead><tbody>" + scoreRow[0] + "</tbody></table>");
-            $("h7").show();
+            //Removing previous highest score
+            $(".highestScore").empty();
+            //Inserting last highest score
+            $(".highestScore").append("<table class=\"table table-sucess\"><thead><tr><th>N°</th><th>Name</th><th>Score</th></tr></thead><tbody>" + scoreRow[0] + "</tbody></table>");
+            $(".highestScore").show();
         }
     });
 
-    /** Go back to re-start the quizz*/
-    $("#back").on("click", function(e) {
+    /** Go back to re-start the quizz **/
+    $("#back").on("click", function() {
         $("h4").text("Coding Quiz challenge");
-        $("h6, #Start").removeClass("d-none");
+        $("h6, #start").removeClass("d-none");
         $("#back, #clear").addClass("d-none");
         $("h5").addClass("d-none");
-        $("#qBtn").removeClass("d-flex flex-column float-left");
-        timeLeft = 0;
+        $(".answersContainer").removeClass("d-flex flex-column float-left");
         $("#time").text("0:0")
-        $("h7").hide();
+        $(".highestScore").hide();
         $("#finalScore").addClass("d-none");
+        timeLeft = 0;
     });
 
-    //Clearing highcores table rows
-    $("#clear").on("click", function(e) {
-        $("#tb, h7").empty();
+    //Clearing highcores table and the highest score display
+    $("#clear").on("click", function() {
+        $("tbody, .highestScore").empty();
         highScores = [];
-        //present the submit form to eventually save the last score
         $("#finalScore").removeClass("d-none");
+        timeLeft = 0;
     });
 });
