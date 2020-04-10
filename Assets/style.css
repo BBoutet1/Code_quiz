@@ -51,13 +51,15 @@
         }
         
         .scoresTable {
-            min-width: 310px;
+            min-width: 300px;
         }
         
+        .table body,
         .table td,
         .table th {
             padding: 0px;
             margin-bottom: 0px;
+            overflow: auto;
         }
         
         .timeLeft {
@@ -66,7 +68,11 @@
             background-color: white;
             position: relative;
             top: 10px;
-            color: rgb(10, 177, 10);
+        }
+        
+        span {
+            display: block;
+            margin: auto;
         }
         
         .card-header {
@@ -113,9 +119,5 @@
             .timer {
                 margin: auto;
                 display: block;
-            }
-            span {
-                display: flex;
-                width: 100%
             }
         }

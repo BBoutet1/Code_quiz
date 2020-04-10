@@ -118,7 +118,7 @@ $(document).ready(function() {
     /**  Setting the timer  **/
     var timeLeft = 0;
 
-    function setTime() {
+    function setTimer() {
         var timerInterval = setInterval(function() {
             if (timeLeft > 0 && questionNumber < questionsList.length - 1) {
                 timeLeft = timeLeft - 1000;
@@ -126,13 +126,31 @@ $(document).ready(function() {
             var minutes = Math.floor(timeLeft / (1000 * 60)); // Conversion in minutes
             var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
             var t = minutes + ":" + seconds; // time in minutes ans secondes
-            $(".timeLeft").text(t)
+            $(".timeSpan").text(t)
 
             if (timeLeft === 0) {
                 clearInterval(timerInterval);
             }
 
         }, 1000);
+    }
+
+    /**  Blinking timer last 20 secondes  **/
+    function timerBlink() {
+        var timeDisplay = "visible";
+        var blinkInterval = setInterval(function() {
+                if (timeLeft > 0 && timeLeft < 20000 && questionNumber < questionsList.length - 1) {
+                    $(".timeSpan").css("color", "red");
+                    timeDisplay = (timeDisplay == "visible" ? "hidden" : "visible");
+                    // f.style.display = (f.style.display == 'none' ? '' : 'none');
+                    $(".timeSpan").css("visibility", timeDisplay);
+                    console.log(timeDisplay)
+                }
+                if (timeLeft === 0) {
+                    clearInterval(blinkInterval);
+                }
+            },
+            500);
     }
 
 
@@ -145,7 +163,8 @@ $(document).ready(function() {
         if (buttonId == "start") {
             quizfunction();
             timeLeft = 1000 * 8 * questionsList.length // the timer is a funtion of the quiz length
-            setTime();
+            setTimer();
+            timerBlink();
             score = 0;
             $("#score").text(score);
             name = "";
@@ -205,7 +224,7 @@ $(document).ready(function() {
                 $(".answersContainer").width(largestButton); // container width equal to the largest button width
 
                 /*  Handling answers buttons (container) overflow  */
-                const flexButton = $("main").width() - 30;
+                const flexButton = $("main").width() - 16;
                 $(".answersContainer").css("max-width", flexButton + "px ");
 
 
@@ -296,7 +315,7 @@ $(document).ready(function() {
         $(".quizIntro, #start").removeClass("d-none");
         $("#back, #clear").addClass("d-none");
         $(".answersContainer").removeClass("d-flex flex-column float-left");
-        $(".timeLeft").text("0:00")
+        $(".timeSpan").text("0:00")
         $(".highestScore").hide();
         $("#finalScore").addClass("d-none");
         timeLeft = 0;
@@ -304,8 +323,11 @@ $(document).ready(function() {
 
     //Clearing highcores table and the highest score display
     $("#clear").on("click", function() {
-        $("tbody, .highestScore").empty();
+        const noScore = "  <tr> <td colspan = \"3\"style =\"font-style: italic\"> No score has been saved </td> </tr>"
+        $("tbody").html(noScore);
+        $(".highestScore").empty();
         highScores = [];
         $("#finalScore").removeClass("d-none");
+
     });
 });
