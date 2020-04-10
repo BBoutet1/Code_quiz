@@ -104,9 +104,7 @@ function quizfunction() {
 
 $(document).ready(function() {
 
-    /** Highscores table hiden initially behind *
-     * 
-     */
+    /** Highscores table hiden initially behind **/
     $("tbody").hide();
 
     $(".viewTable, table").mouseenter(function() {
@@ -117,9 +115,7 @@ $(document).ready(function() {
         $("tbody").hide();
     });
 
-
-
-    /*****  Setting the timer  *****/
+    /**  Setting the timer  **/
     var timeLeft = 0;
 
     function setTime() {
@@ -130,7 +126,7 @@ $(document).ready(function() {
             var minutes = Math.floor(timeLeft / (1000 * 60)); // Conversion in minutes
             var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
             var t = minutes + ":" + seconds; // time in minutes ans secondes
-            $("#time").text(t)
+            $(".timeLeft").text(t)
 
             if (timeLeft === 0) {
                 clearInterval(timerInterval);
@@ -185,8 +181,8 @@ $(document).ready(function() {
             if (questionNumber < questionsList.length - 1) {
                 const answers = answersArray[questionNumber + 1]; // ansers array
                 const numAnswers = answers.length;
-                $("h4").text(questionsList[questionNumber + 1])
-                $("h6, #start, #b3, #b4").addClass("d-none");
+                $(".card-header").text(questionsList[questionNumber + 1])
+                $(".quizIntro, #start, #b3, #b4").addClass("d-none");
 
                 /***  Randomly reoganizing the question i answers array ***/
                 var randomAnswers = []; // random answers array
@@ -202,12 +198,17 @@ $(document).ready(function() {
                     $("#b" + k).addClass("text-left");
                     $("#b" + k).removeClass("d-none");
                 }
-                //Defining buttons div container ter ()
-                $(".answersContainer").width(550);
-                var btnWidth = Math.max.apply(Math, $(".btn").map(function() { return $(this).outerWidth(); }).get());
-                console.log(btnWidth);
-                $(".answersContainer").width(btnWidth);
-                console.log($(".answersContainer").width())
+                /*  Defining width of the answers buttons (container) to allow centering */
+                $(".answersContainer").width(550); // expend button container first
+                // Largest button width
+                const largestButton = Math.max.apply(Math, $(".btn").map(function() { return $(this).outerWidth(); }).get());
+                $(".answersContainer").width(largestButton); // container width equal to the largest button width
+
+                /*  Handling answers buttons (container) overflow  */
+                const flexButton = $("main").width() - 30;
+                $(".answersContainer").css("max-width", flexButton + "px ");
+
+
             }
 
             //moving to the next question
@@ -224,10 +225,10 @@ $(document).ready(function() {
         /*** Quiz ended after last question OR if left time 0 secondes **/
         else {
             $("#b1, #b2, #b3, #b4").addClass("d-none");
-            $("h4").text("All done!")
+            $(".card-header").text("All done!")
                 //If all questions not answered in given time
             if (questionNumber < questionsList.length - 2) {
-                $("h4").text(questionsList.length - questionNumber + " questions not completed. Time out!")
+                $(".card-header").text(questionsList.length - questionNumber + " questions not completed. Time out!")
             }
             /****  Saving the score ****/
             $("#finalScore, #addName").removeClass("d-none")
@@ -247,6 +248,8 @@ $(document).ready(function() {
         if (name == "") {
             /** Null initial input */
             alert("Please, enter your initials")
+        } else if (name.length > 15) {
+            alert("oo long, please change initials")
         } else {
             $("#addName, #finalScore").addClass("d-none");
             $("#back, #clear").removeClass("d-none");
@@ -278,7 +281,7 @@ $(document).ready(function() {
             }
 
             /** Presenting the highest score **/
-            $("h4").text("Highest score");
+            $(".card-header").text("Highest score");
             //Removing previous highest score
             $(".highestScore").empty();
             //Inserting last highest score
@@ -289,12 +292,11 @@ $(document).ready(function() {
 
     /** Go back to re-start the quizz **/
     $("#back").on("click", function() {
-        $("h4").text("Coding Quiz challenge");
-        $("h6, #start").removeClass("d-none");
+        $(".card-header").text("Coding Quiz challenge");
+        $(".quizIntro, #start").removeClass("d-none");
         $("#back, #clear").addClass("d-none");
-        $("h5").addClass("d-none");
         $(".answersContainer").removeClass("d-flex flex-column float-left");
-        $("#time").text("0:0")
+        $(".timeLeft").text("0:00")
         $(".highestScore").hide();
         $("#finalScore").addClass("d-none");
         timeLeft = 0;
@@ -305,6 +307,5 @@ $(document).ready(function() {
         $("tbody, .highestScore").empty();
         highScores = [];
         $("#finalScore").removeClass("d-none");
-        timeLeft = 0;
     });
 });

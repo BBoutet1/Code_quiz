@@ -1,25 +1,121 @@
-main {
-    max-width: 600px;
-    min-width: 300px;
-    margin: auto;
-}
-
-.jumbotron {
-    padding-bottom: 20px;
-    padding-top: 20px;
-}
-
-.answersContainer {
-    display: block;
-    margin: auto;
-    overflow: auto;
-}
-
-.answer {
-    float: left;
-}
-
-form {
-    width: 400px;
-    margin: auto;
-}
+        * {
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-width: 320px;
+        }
+        
+        main {
+            max-width: 600px;
+            min-width: 300px;
+            margin: auto;
+            overflow: auto;
+        }
+        
+        .jumbotron {
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow: auto;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(210, 207, 241);
+        }
+        
+        .timeLeft,
+        .time {
+            display: block;
+            margin: auto;
+            text-align: center;
+        }
+        
+        .time {
+            position: relative;
+            top: 8px;
+        }
+        
+        .timer {
+            width: 85px;
+            height: 85px;
+            float: left;
+            border-radius: 50%;
+            margin-left: 20px;
+            margin-right: 20px;
+            background-color: bisque;
+            border: 2px solid grey;
+        }
+        
+        .viewTable {
+            padding: 5px;
+        }
+        
+        .scoresTable {
+            min-width: 310px;
+        }
+        
+        .table td,
+        .table th {
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+        
+        .timeLeft {
+            border: 2px solid gray;
+            width: 50px;
+            background-color: white;
+            position: relative;
+            top: 10px;
+            color: rgb(10, 177, 10);
+        }
+        
+        .card-header {
+            background-color: rgb(210, 207, 241);
+            padding: 8px;
+        }
+        
+        .card-body {
+            padding: 10px;
+        }
+        
+        .answersContainer {
+            display: block;
+            margin: auto;
+            overflow: auto;
+        }
+        
+        .answerButton {
+            float: left;
+        }
+        
+        form {
+            margin: auto;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        label {
+            margin: 0px;
+            line-height: 38px;
+        }
+        
+        @media screen and (max-width: 640px) {
+            main {
+                margin: auto;
+                margin-left: 15px;
+                margin-right: 15px
+            }
+        }
+        
+        @media screen and (max-width: 600px) {
+            .scoresTable,
+            .timer {
+                margin: auto;
+                display: block;
+            }
+            span {
+                display: flex;
+                width: 100%
+            }
+        }

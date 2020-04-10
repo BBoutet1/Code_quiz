@@ -14,66 +14,62 @@
 
 <body>
     <header class="jumbotron jumbotron-fluid">
-        <section class="row">
-            <div class="col-lg-6 text-center">
-                <h3 class="viewTable"> - View all high scores -</h3>
-                <table class="table table-sucess">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Name</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-lg-6 text-center">
-                <h3 class="d-inline"> time left: </h3>
-                <h3 id="time" class="d-inline">0:0</h3>
-            </div>
-        </section>
+        <div class="timer">
+            <h6 class="time"> Timer</h6>
+            <h5 class="timeLeft">0:00</h5>
+        </div>
+        <div class="scoresTable text-center">
+            <h5 class="viewTable"> - View highscores -</h5>
+            <table class="table table-sucess">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Initials</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </header>
-    <main>
-        <section class="container">
-            <div class="card">
-                <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
-                <div class="card-body text-center">
-                    <h6 class="text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
-                    <button id="start" type="button" class="btn btn-success mt-3">Start Quiz</button>
-                    <div class="answersContainer">
-                        <button id="b1" type="button" class="answer btn btn-success mb-2 d-none"></button>
-                        <button id="b2" type="button" class="answer btn btn-success mb-2 d-none"></button>
-                        <button id="b3" type="button" class="answer btn btn-success mb-2 d-none"></button>
-                        <button id="b4" type="button" class="answer btn btn-success mb-2 d-none"></button>
-                    </div>
-                    <div id=finalScore class="d-none mb-3">
-                        <div>Your final score is :
-                            <h6 id=score class="d-inline">0</h6>
-                        </div>
-                        <form id="initials" class="form-inline" required>
-                            <label for="user-input" class="mr-2"> Add your initials</label>
-                            <input type="text" id="scoreInput"><br>
-                            <!-- Button triggers score and initials to be added -->
-                            <input id="addName" type="submit" class="btn btn-success  ml-2" value="Submit">
-                        </form>
-                    </div>
-
-                    <!-- higest scoredisplay -->
-                    <div class="highestScore text-center"></div>
-
-                    <!-- "Clear" and back buttons -->
-                    <div class="backNclear text-center">
-                        <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
-                        <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button>
-                    </div>
-                </div>
-                <div class=" card-footer text-center d-none">
-                    <h5 id=cardfoot></h5>
-                </div>
+    <main class="card">
+        <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
+        <div class="card-body text-center">
+            <h6 class="quizIntro text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
+            <button id="start" type="button" class="btn btn-success mt-3">Start Quiz</button>
+            <div class="answersContainer">
+                <button id="b1" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
+                <button id="b2" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
+                <button id="b3" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
+                <button id="b4" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
             </div>
-        </section>
+            <div id=finalScore class="d-none mb-3">
+                <div>Your final score is :
+                    <h6 id=score class="d-inline">0</h6>
+                </div>
+                <form required>
+                    <label for="user-input" class="mr-2"> Add your initials:</label>
+                    <div class="inputSubmit">
+                        <input type="text" id="scoreInput">
+                        <!-- Button triggers score and initials to be added -->
+                        <input id="addName" type="submit" class="btn btn-success" value="Submit">
+                    </div>
+                </form>
+            </div>
+
+            <!-- higest scoredisplay -->
+            <div class="highestScore text-center"></div>
+
+            <!-- "Clear" and back buttons -->
+            <div class="backNclear text-center">
+                <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
+                <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button>
+            </div>
+        </div>
+        <div class=" card-footer text-center d-none">
+            <h5 id=cardfoot></h5>
+        </div>
     </main>
 </body>
 
