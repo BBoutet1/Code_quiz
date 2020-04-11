@@ -1,12 +1,12 @@
-/***  Variables ***/
-var questionsList = []; // List of all questions
-var answersArray = []; //List  of answers for all questions
-var questionNumber = 0; // Current question number (start from index 0)
-var goodAnswers = []; // List of all good answers
-var highScores = []; // List of at the maximum 5 highest scores
-var name = ""; // user Initials
+/***  Global variables ***/
+let questionsList = []; // Array of all questions-answers object
+let answersArray = []; // Array  of retrieved answers for all questions
+let goodAnswers = []; // List of all good answers
+let questionNumber = 0; // Currently displayed question number (start from index 0)
+let highScores = []; // List of at the maximum 5 highest scores
+let name = ""; // user initials
 let score = 0; // User final score
-var attempt = [] // user initials - score objet(one element array)
+let attempt = [] // saved user initials-core objects array
 
 /*** Defining the different questions  and answers***/
 function quizfunction() {
@@ -14,9 +14,7 @@ function quizfunction() {
     questionsList = [];
     answersArray = [];
     goodAnswers = [];
-
-
-    var quizArray = [{
+    let quizArray = [{
             question: "What is the correct  HTML5 doctype?", // the question
             answers: ["<DOCTYPE html>", "<!DOCTYPE html>", "<!DOCTYPE html5>"] // answer choices
         },
@@ -49,7 +47,6 @@ function quizfunction() {
             question: "In which HTML tag do we put the JavaScript?",
             answers: ["<js>", "<script>", "<src>"]
         },
-
         {
             question: "The external JavaScript file contains the <script> tag.",
             answers: ["True", "False"]
@@ -62,17 +59,14 @@ function quizfunction() {
             question: "On how many columns is the Bootstrap grid system based ?",
             answers: ["10", "12", "25", "1024"]
         },
-
         {
             question: "Which Bootstrap contextual class indicates a dangerous or negative action? ",
             answers: [".text-warning", ".text-danger", ".attention", ".text-stop"]
         },
-
         {
             question: "The Bootstrap grid system works across multiple devices.",
             answers: ["False", "True"]
         },
-
         {
             question: "jQuery is a Javascript library.",
             answers: ["False", "True"]
@@ -81,7 +75,6 @@ function quizfunction() {
             question: "Which sign is used as a shortcut for jQuery?",
             answers: ["#", "$", "%"]
         },
-
         {
             question: "What the following selector: $(\"div\") does?.",
             answers: ["Select the first div element", "Select all div elements"]
@@ -91,12 +84,12 @@ function quizfunction() {
             question: "What scripting language is jQuery written in?",
             answers: ["css", "Javascript", "C++"]
         }
-
     ]
 
-    for (var j = 0; j < quizArray.length; j++) {
+    /* Retrieving and saving answers listfor each question */
+    for (let j = 0; j < quizArray.length; j++) {
         answersArray[j] = quizArray[j].answers;
-        goodAnswers.push(quizArray[j].answers[1]);
+        goodAnswers.push(quizArray[j].answers[1]); // good anser in second position
         questionsList.push(quizArray[j].question)
     }
 
@@ -104,30 +97,33 @@ function quizfunction() {
 
 $(document).ready(function() {
 
-    /** Highscores table hiden initially behind **/
-    $("tbody").hide();
-
+    /* Highscores table display functionality */
+    $("tbody").hide(); // initially hidden
     $(".viewTable, table").mouseenter(function() {
-        $("tbody").show();
+        $("tbody").show(); // visible on mouseenter
     });
-
     $(".viewTable, table").mouseleave(function() {
         $("tbody").hide();
     });
 
-    /**  Setting the timer  **/
-    var timeLeft = 0;
-
+    /*  Setting the timer  */
+    let timeLeft = 0; // timer remaining time
     function setTimer() {
-        var timerInterval = setInterval(function() {
+        let timerInterval = setInterval(function() {
+            // decrementing timer
             if (timeLeft > 0 && questionNumber < questionsList.length - 1) {
                 timeLeft = timeLeft - 1000;
             }
-            var minutes = Math.floor(timeLeft / (1000 * 60)); // Conversion in minutes
-            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            var t = minutes + ":" + seconds; // time in minutes ans secondes
-            $(".timeSpan").text(t)
-
+            // Converting millisecondes in minutes and secondes
+            let minutes = Math.floor(timeLeft / (1000 * 60));
+            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000) + ""; // type: string
+            //Seconds display in 2 digits
+            if (seconds.length < 2) {
+                seconds = "0" + seconds;
+            }
+            let time = minutes + ":" + seconds;
+            // Time value added in html
+            $(".timeSpan").text(time)
             if (timeLeft === 0) {
                 clearInterval(timerInterval);
             }
@@ -135,16 +131,14 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    /**  Blinking timer last 20 secondes  **/
+    /**  Blinking timer for the 20 secondes  **/
     function timerBlink() {
-        var timeDisplay = "visible";
-        var blinkInterval = setInterval(function() {
+        let timeDisplay = "visible";
+        let blinkInterval = setInterval(function() {
                 if (timeLeft > 0 && timeLeft < 20000 && questionNumber < questionsList.length - 1) {
                     $(".timeSpan").css("color", "red");
                     timeDisplay = (timeDisplay == "visible" ? "hidden" : "visible");
-                    // f.style.display = (f.style.display == 'none' ? '' : 'none');
                     $(".timeSpan").css("visibility", timeDisplay);
-                    console.log(timeDisplay)
                 }
                 if (timeLeft === 0) {
                     clearInterval(blinkInterval);
@@ -152,13 +146,9 @@ $(document).ready(function() {
             },
             500);
     }
-
-
-
-    /*****  start and answer buttons listener  *****/
+    /*  start and 4 answers buttons listener  */
     $(".btn").click(function(e) {
-
-        /**** Re-itinitialization with start button click****/
+        /* Re-itinitialization when start button is clicked*/
         buttonId = e.target.id;
         if (buttonId == "start") {
             quizfunction();
@@ -168,80 +158,84 @@ $(document).ready(function() {
             score = 0;
             $("#score").text(score);
             name = "";
-            questionNumber = -1; //waiting the first question where index is 0)
+            questionNumber = -1; //waiting for the first where index is 0)
         }
 
-        /**** While last question  is not reached AND left time is not 0 ****/
+        /************************************************************************************************************************
+         * Retrieving and processing questions and answers selectiions whie last question is not reached AND left time is not 0 *
+         ************************************************************************************************************************/
         if (questionNumber < (questionsList.length - 1) && timeLeft != 0) {
-            /***  Comparing the seclected answer to the good answer and updating the score the score  ****/
+            /*  Comparing selected answer to the good answer and updating the score  */
             if (questionNumber >= 0) {
-                var answer = $(this).text(); // selected answer
-                const chosedAnswer = answer.substring(3); // removing the number to match(compare) with the good answer
-                const goodAnswer = goodAnswers[questionNumber]; // good answer
+                let answer = $(this).text(); // selected answer
+                const chosedAnswer = answer.substring(3); // removing answer list number to math to  correct answer string
+                const goodAnswer = goodAnswers[questionNumber]; // good answer for the current question
                 if (chosedAnswer == goodAnswer) {
+                    //Correct answer
                     $("#cardfoot").text("Correct!");
                     $(".card-footer, #cardfoot").removeClass("text-danger d-none");
                     $(".card-footer").addClass("text-success");
                     score++;
                     $("#score").text(score); // writing the new score value           
                 } else if (chosedAnswer != goodAnswer) {
+                    //Wrong answer 
                     $("#cardfoot").text("Wrong!");
                     $(".card-footer, #cardfoot").removeClass("text-success d-none");
                     $(".card-footer").addClass("text-danger");
                     if (timeLeft >= 10000) {
                         timeLeft -= 10000 // -10 secondes penalty for a wrong answer  
                     } else {
-                        timeLeft = 0;
+                        timeLeft = 0; // prevent negative time
                     }
                 }
             }
 
-            /*** Displaying next question  and its answers */
+            /* Displaying next question  and its answers */
             if (questionNumber < questionsList.length - 1) {
-                const answers = answersArray[questionNumber + 1]; // ansers array
-                const numAnswers = answers.length;
+                const answers = answersArray[questionNumber + 1]; // answers for the next question
+                const numChoices = answers.length; // number of answers choices
                 $(".card-header").text(questionsList[questionNumber + 1])
                 $(".quizIntro, #start, #b3, #b4").addClass("d-none");
 
-                /***  Randomly reoganizing the question i answers array ***/
-                var randomAnswers = []; // random answers array
-                for (var j = 0; j < numAnswers; j++) {
-                    var random = Math.floor(Math.random() * (answers.length - 1));
+                /*  Randomly reoganizing answers  */
+                let randomAnswers = []; // random answers array
+                for (let j = 0; j < numChoices; j++) {
+                    let random = Math.floor(Math.random() * (answers.length - 1));
                     randomAnswers.push(answers[random]);
                     answers.splice(random, 1);
 
                     /**  Writting the answers in button b1 to bk (k = 2 to 4)  **/
-                    var k = j + 1;
-                    var aNum = String.fromCharCode(64 + k); // answer number (from A to D)
+                    let k = j + 1;
+                    let aNum = String.fromCharCode(64 + k); // answer list number (from A to D)
                     $("#b" + k).text(aNum + ". " + randomAnswers[j]);
                     $("#b" + k).addClass("text-left");
                     $("#b" + k).removeClass("d-none");
                 }
-                /*  Defining width of the answers buttons (container) to allow centering */
-                $(".answersContainer").width(550); // expend button container first
-                // Largest button width
-                const largestButton = Math.max.apply(Math, $(".btn").map(function() { return $(this).outerWidth(); }).get());
-                $(".answersContainer").width(largestButton); // container width equal to the largest button width
 
-                /*  Handling answers buttons (container) overflow  */
+                /*  Defining width of the answers container to allow centering */
+                $(".answersContainer").width(550); // expend container first
+                // Find the largest button width
+                const largestButton = Math.max.apply(Math, $(".btn").map(function() { return $(this).outerWidth(); }).get());
+                // container width equal to the largest button width for fitting
+                $(".answersContainer").width(largestButton);
+
+                /*  Handling answers buttons (container) overflow by limiting the width to the parent container */
                 const flexButton = $("main").width() - 16;
                 $(".answersContainer").css("max-width", flexButton + "px ");
-
-
             }
 
             //moving to the next question
             questionNumber++;
 
-            /** Answers status (Right, Wrong )  displayed in the cad footer for 0.8 sec */
+            /* Answers status (Right, Wrong )  displayed in the cad footer for 0.8 sec */
             setTimeout(timer, 800);
 
             function timer() {
                 $(".card-footer").addClass("d-none");
             }
-
         }
-        /*** Quiz ended after last question OR if left time 0 secondes **/
+        /* 
+        when the quiz ends after last question OR time is 0 secondes **/
         else {
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $(".card-header").text("All done!")
@@ -249,7 +243,7 @@ $(document).ready(function() {
             if (questionNumber < questionsList.length - 2) {
                 $(".card-header").text(questionsList.length - questionNumber + " questions not completed. Time out!")
             }
-            /****  Saving the score ****/
+            /*  Saving the score in % */
             $("#finalScore, #addName").removeClass("d-none")
             const scoPercent = (score / questionsList.length) * 100
             $("#score").text(scoPercent + " % ");
@@ -258,41 +252,40 @@ $(document).ready(function() {
 
     });
 
-
-    /*** Saving the initials */
+    /* Saving the input initials with corresponding score */
     $("#addName").on("click", function(event) {
         event.preventDefault();
         /***grabing the intials from the textbox**/
         name = $("#scoreInput").val().trim();
         if (name == "") {
-            /** Null initial input */
+            /* Null initials input */
             alert("Please, enter your initials")
-        } else if (name.length > 15) {
-            alert("oo long, please change initials")
+        } else if (name.length > 10) {
+            alert("Too long, please change initials length")
         } else {
             $("#addName, #finalScore").addClass("d-none");
             $("#back, #clear").removeClass("d-none");
 
-            /** High score table organized  in decreasing order */
+            /* High score table organization  in decreasing order */
             const scoPercent = (score / questionsList.length) * 100;
             const attempt = [{ uName: name, uScore: scoPercent }];
             highScores = highScores.concat(attempt);
             highScores.sort(function(a, b) {
                 return b.uScore - a.uScore;
             });
-            var x = 0; // score local variable
-            var z = ""; // initials local variable
-            var scoreRow = [];
+            let x = 0; // score local variable
+            let z = ""; // initials local variable
+            let scoreRow = [];
             $("tbody").empty();
 
-            /*** No more than 5 high scores rows or delete the lowest*/
+            /* No more than 5 high scores rows or delete the lowest */
             while (highScores.length > 5) {
                 highScores.splice(history.length - 1, 1);
             }
 
-            /** Generationg the ordered hiscore table */
-            for (var k = 0; k < highScores.length; k++) {
-                var rank = k + 1;
+            /* Generating the ordered hiscores table */
+            for (let k = 0; k < highScores.length; k++) {
+                let rank = k + 1;
                 z = highScores[k].uScore;
                 x = highScores[k].uName;
                 scoreRow[k] = "<tr><td>" + rank + "</td><td>" + x + "</td> <td>" + z + " %" + "</td></tr>"

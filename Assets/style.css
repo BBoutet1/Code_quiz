@@ -54,12 +54,13 @@
             min-width: 300px;
         }
         
-        .table body,
+        .table,
         .table td,
-        .table th {
+        .table thead th {
             padding: 0px;
             margin-bottom: 0px;
             overflow: auto;
+            border: 1.8px solid white;
         }
         
         .timeLeft {

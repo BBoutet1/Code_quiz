@@ -14,12 +14,14 @@
 
 <body>
     <header class="jumbotron jumbotron-fluid">
+        <!-- Quiz imer display -->
         <div class="timer">
             <h6 class="time"> Timer</h6>
             <h5 class="timeLeft">
                 <span class="timeSpan">0:00</span>
             </h5>
         </div>
+        <!-- Hiscores table -->
         <div class="scoresTable text-center">
             <h5 class="viewTable"> - View highscores -</h5>
             <table class="table table-sucess">
@@ -32,6 +34,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <!-- When no score has been saved -->
                         <td colspan="3" style="font-style: italic"> No score has been saved</td>
                     </tr>
                 </tbody>
@@ -39,21 +42,33 @@
         </div>
     </header>
     <main class="card">
+
+        <!-- Questions dynamically appear in this h4 -->
         <h4 class="card-header text-center"> <strong>Coding Quiz challenge</strong></h4>
         <div class="card-body text-center">
-            <h6 class="quizIntro text-center"> Answer following questions to assess your coding expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
+            <h6 class="quizIntro text-center"> Answer following questions to assess your web programming expertise. An incorrect answer penalizes your score time by 10 secondes</h6>
+
+            <!-- Button to start the quiz -->
             <button id="start" type="button" class="btn btn-success mt-3">Start Quiz</button>
+
+            <!-- Answers choces list buttons -->
             <div class="answersContainer">
                 <button id="b1" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
                 <button id="b2" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
                 <button id="b3" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
                 <button id="b4" type="button" class="answerButton btn btn-success mb-2 d-none"></button>
             </div>
+
+
             <div id=finalScore class="d-none mb-3">
+
+                <!-- Final score display -->
                 <div>Your final score is :
                     <h6 id=score class="d-inline">0</h6>
                 </div>
-                <form required>
+
+                <!-- Initials input form -->
+                <form>
                     <label for="user-input" class="mr-2"> Add your initials:</label>
                     <div class="inputSubmit">
                         <input type="text" id="scoreInput">
@@ -66,12 +81,14 @@
             <!-- higest scoredisplay -->
             <div class="highestScore text-center"></div>
 
-            <!-- "Clear" and back buttons -->
+            <!-- "Clear" and "Back" buttons -->
             <div class="backNclear text-center">
                 <button id="back" type="button" class="btn btn-success mb-2 d-none">Go back</button>
                 <button id="clear" type="button" class="btn btn-success mb-2 d-none">Clear highscores</button>
             </div>
         </div>
+
+        <!-- Footer used to momentally display "wrong" or "right" answer status -->
         <div class=" card-footer text-center d-none">
             <h5 id=cardfoot></h5>
         </div>
