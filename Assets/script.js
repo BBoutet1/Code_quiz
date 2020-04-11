@@ -34,7 +34,6 @@ function quizfunction() {
             ]
 
         },
-
         {
             question: "Which CSS property changes the text color of an element?",
             answers: ["font-color", "color", "text-color"]
@@ -111,12 +110,12 @@ $(document).ready(function() {
     function setTimer() {
         let timerInterval = setInterval(function() {
             // decrementing timer
-            if (timeLeft > 0 && questionNumber < questionsList.length - 1) {
+            if (timeLeft > 0 && questionNumber < questionsList.length) {
                 timeLeft = timeLeft - 1000;
             }
-            // Converting millisecondes in minutes and secondes
+            // Converting milliseconds in minutes and secondes
             let minutes = Math.floor(timeLeft / (1000 * 60));
-            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000) + ""; // type: string
+            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000) + ""; // string
             //Seconds display in 2 digits
             if (seconds.length < 2) {
                 seconds = "0" + seconds;
@@ -135,13 +134,16 @@ $(document).ready(function() {
     function timerBlink() {
         let timeDisplay = "visible";
         let blinkInterval = setInterval(function() {
-                if (timeLeft > 0 && timeLeft < 20000 && questionNumber < questionsList.length - 1) {
+                if (timeLeft > 0 && timeLeft < 20000 && questionNumber < (questionsList.length)) {
                     $(".timeSpan").css("color", "red");
                     timeDisplay = (timeDisplay == "visible" ? "hidden" : "visible");
                     $(".timeSpan").css("visibility", timeDisplay);
                 }
                 if (timeLeft === 0) {
                     clearInterval(blinkInterval);
+                    $(".timeSpan").css("visibility", "visible");
+                    $(".timeSpan").css("color", "black");
+
                 }
             },
             500);
@@ -164,7 +166,7 @@ $(document).ready(function() {
         /************************************************************************************************************************
          * Retrieving and processing questions and answers selectiions whie last question is not reached AND left time is not 0 *
          ************************************************************************************************************************/
-        if (questionNumber < (questionsList.length - 1) && timeLeft != 0) {
+        if (questionNumber < (questionsList.length) && timeLeft != 0) {
             /*  Comparing selected answer to the good answer and updating the score  */
             if (questionNumber >= 0) {
                 let answer = $(this).text(); // selected answer
@@ -190,11 +192,17 @@ $(document).ready(function() {
                 }
             }
 
+            /* Answers status (Right, Wrong )  displayed in the cad footer for 0.8 sec */
+            setTimeout(function timer() {
+                $(".card-footer").addClass("d-none");
+            }, 800);
+
             /* Displaying next question  and its answers */
-            if (questionNumber < questionsList.length - 1) {
-                const answers = answersArray[questionNumber + 1]; // answers for the next question
+            questionNumber++;
+            if (questionNumber < questionsList.length) {
+                const answers = answersArray[questionNumber]; // answers for the next question
                 const numChoices = answers.length; // number of answers choices
-                $(".card-header").text(questionsList[questionNumber + 1])
+                $(".card-header").text(questionsList[questionNumber])
                 $(".quizIntro, #start, #b3, #b4").addClass("d-none");
 
                 /*  Randomly reoganizing answers  */
@@ -223,24 +231,14 @@ $(document).ready(function() {
                 const flexButton = $("main").width() - 16;
                 $(".answersContainer").css("max-width", flexButton + "px ");
             }
-
-            //moving to the next question
-            questionNumber++;
-
-            /* Answers status (Right, Wrong )  displayed in the cad footer for 0.8 sec */
-            setTimeout(timer, 800);
-
-            function timer() {
-                $(".card-footer").addClass("d-none");
-            }
         }
         /* 
         when the quiz ends after last question OR time is 0 secondes **/
-        else {
+        if (questionNumber == 16 || timeLeft == 0) {
             $("#b1, #b2, #b3, #b4").addClass("d-none");
             $(".card-header").text("All done!")
                 //If all questions not answered in given time
-            if (questionNumber < questionsList.length - 2) {
+            if (questionNumber < questionsList.length) {
                 $(".card-header").text(questionsList.length - questionNumber + " questions not completed. Time out!")
             }
             /*  Saving the score in % */

@@ -19,7 +19,7 @@ This app is a timed code quiz with multiple-choice questions. It runs in the bro
 - When you click the Start Button, the timer start and the first question is presented.
 - When you select your answer, the "wrong" or "right" status is popped up while another question is presented. 
 - If the answer is wrong, 10 secondes penalty are substracted from the timer. 
-- When decrementing timer reaches 20 secondes, the time value turns red and flashes.
+- When the decrementing timer reaches 20 secondes, the time value turns red and flashes.
 - If all questions are answered or the timer reaches 0 the game is over.
 - When the game is over, you can save initials and score or go back to re-start the quiz.
 - If your initials contains more than 10 characters you're alerted to change initials length.
@@ -34,10 +34,13 @@ Adding or removing a question with its answers choix is relatively easy, represe
 The right answer is always the second in the answers list for each question. The list is randomly re-organized.
 ```
 
-## Future development
+## Future development and updates
 
 ```
-Assign a time to each question instead of the entire quiz.
+- Assign a time to each question instead of the entire quiz.
+- Announce number of questions
+- Display current question number.
+- 
 ```
 
 
