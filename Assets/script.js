@@ -14,33 +14,36 @@ function quizfunction() {
     questionsList = [];
     answersArray = [];
     goodAnswers = [];
+
+    /********************************************************************************************************
+     * This jSON lsits questions-answers in objects.                                                         *
+     * The right answers is the second elements of  * each asnswers array                                    *
+     * Answers are randomly reorganized bifore they are displayed to the user for selection                  *                                                           
+     *********************************************************************************************************/
     let quizArray = [{
-            question: "What is the correct  HTML5 doctype?", // the question
-            answers: ["<DOCTYPE html>", "<!DOCTYPE html>", "<!DOCTYPE html5>"] // answer choices
+            question: "How to declare a function in Javascript?", // the question
+            answers: ["function=myFunction()", "function myFunction()", "myFunction()"] // answer choices
         },
         {
-            question: "Which tag start a numbered list?",
-            answers: ["<al>", "<ol>", "<ul>", "<li>"]
+            question: "How does a WHILE loop start?",
+            answers: ["while i = 1 to 10", "while (i <= 10)", "while (i <= 10; i++)"]
         },
         {
-            question: "Inline elements are normally displayed without starting a new line.",
-            answers: ["False", "True"]
+            question: "Which operator is used to assign a value to a variable?",
+            answers: ["x", "=", "+", "/"]
         },
         {
-            question: "Which HTML is correct for referencing an external stylesheet",
-            answers: ["<link src=\"stylesheet\" type=\"text/css\" href\style.css\" />",
-                "<href=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
-            ]
+            question: "What does the following code returns: Boolean(5 > 9)?",
+            answers: ["true", "false", "1", "-1"]
 
         },
         {
-            question: "Which CSS property changes the text color of an element?",
-            answers: ["font-color", "color", "text-color"]
+            question: "What does the following code  returns: Number(\"1\") - 1 == 0?",
+            answers: ["false", "true", "1"]
         },
         {
-            question: "Is it allowed to use negative values when using padding properties?",
-            answers: ["Yes", "No"]
+            question: "Which code rounds 8.30, to the nearest integer??",
+            answers: ["Math.round.(8.30)", "Math.round(8.30)"]
         },
         {
             question: "In which HTML tag do we put the JavaScript?",
@@ -55,16 +58,16 @@ function quizfunction() {
             answers: ["for(i=0, i<5, i++)", "for(i=0; i<5; i++)", "for(i=0 to 5, i++)", "for(i=0, i<5)"]
         },
         {
-            question: "On how many columns is the Bootstrap grid system based ?",
-            answers: ["10", "12", "25", "1024"]
+            question: "Let A = (new Array(4).toString()). What is the value of A?",
+            answers: ["10", ",,,", "undefined", "10,10,10,10"]
         },
         {
-            question: "Which Bootstrap contextual class indicates a dangerous or negative action? ",
-            answers: [".text-warning", ".text-danger", ".attention", ".text-stop"]
+            question: "Which method displays a dialog box that prompts the visitor for input? ",
+            answers: ["alert()", "prompt()", "confirm", "submit()"]
         },
         {
-            question: "The Bootstrap grid system works across multiple devices.",
-            answers: ["False", "True"]
+            question: "Let X = \"car\"+16 ",
+            answers: ["undefined", "car16"]
         },
         {
             question: "jQuery is a Javascript library.",
@@ -130,7 +133,7 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    /**  Blinking timer for the 20 secondes  **/
+    /**  Blinking and red timer for the last 20 secondes  **/
     function timerBlink() {
         let timeDisplay = "visible";
         let blinkInterval = setInterval(function() {
@@ -143,12 +146,11 @@ $(document).ready(function() {
                     clearInterval(blinkInterval);
                     $(".timeSpan").css("visibility", "visible");
                     $(".timeSpan").css("color", "black");
-
                 }
             },
             500);
     }
-    /*  start and 4 answers buttons listener  */
+    /*  start buttons and answers buttons listener  */
     $(".btn").click(function(e) {
         /* Re-itinitialization when start button is clicked*/
         buttonId = e.target.id;
@@ -160,17 +162,17 @@ $(document).ready(function() {
             score = 0;
             $("#score").text(score);
             name = "";
-            questionNumber = -1; //waiting for the first where index is 0)
+            questionNumber = -1; //waiting for the index is 0: first question)
         }
 
         /************************************************************************************************************************
-         * Retrieving and processing questions and answers selectiions whie last question is not reached AND left time is not 0 *
+         * Retrieving and processing questions and answers selectiions while last question is not reached AND left time is not 0 *
          ************************************************************************************************************************/
         if (questionNumber < (questionsList.length) && timeLeft != 0) {
             /*  Comparing selected answer to the good answer and updating the score  */
             if (questionNumber >= 0) {
                 let answer = $(this).text(); // selected answer
-                const chosedAnswer = answer.substring(3); // removing answer list number to math to  correct answer string
+                const chosedAnswer = answer.substring(3); // removing answer list number to match the string to  the correct answer
                 const goodAnswer = goodAnswers[questionNumber]; // good answer for the current question
                 if (chosedAnswer == goodAnswer) {
                     //Correct answer
@@ -202,7 +204,10 @@ $(document).ready(function() {
             if (questionNumber < questionsList.length) {
                 const answers = answersArray[questionNumber]; // answers for the next question
                 const numChoices = answers.length; // number of answers choices
-                $(".card-header").text(questionsList[questionNumber])
+                let currentQuesttion = questionNumber + 1
+                let stepNum = "<i>" + currentQuesttion + " of " + questionsList.length + " </i>";
+                let stepQuestion = "<h4>" + questionsList[questionNumber] + "</h4>"
+                $(".card-header").html(stepNum + stepQuestion)
                 $(".quizIntro, #start, #b3, #b4").addClass("d-none");
 
                 /*  Randomly reoganizing answers  */
